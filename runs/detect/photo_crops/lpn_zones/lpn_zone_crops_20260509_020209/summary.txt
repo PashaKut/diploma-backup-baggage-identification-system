@@ -1,0 +1,14 @@
+LPN zone crop extraction
+============================================================
+Weights: C:\Users\1\Documents\New project\runs\detect\runs\train\lpn_zones_20260509_003420\weights\best.pt
+Photos: C:\Users\1\Documents\New project\check_lpn_photos\check2
+Output: C:\Users\1\Documents\New project\runs\detect\photo_crops\lpn_zones\lpn_zone_crops_20260509_020209
+
+Total photos: 51
+Photos with detections: 51
+Photos without detections: 0
+Total crops saved: 94
+
+Crops per class:
+- LPN_bottom: 50
+- LPN_right: 44

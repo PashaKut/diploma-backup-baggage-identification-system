@@ -1,0 +1,41 @@
+YOLO photo evaluation
+============================================================
+Weights: C:\Users\1\Documents\New project\runs\detect\runs\train\detector_v1\weights\best.pt
+Photos: C:\Users\1\Documents\New project\data\photos
+Annotated output: C:\Users\1\Documents\New project\runs\detect\photo_eval\detector_v1_photos_20260504_015809
+
+Total photos: 52
+Photos with detections: 36
+Photos without detections: 16
+Detection rate: 69.23%
+Average best confidence: 0.1295
+
+Photos without detections:
+- image2.jpg
+- image4.jpg
+- image7.jpg
+- image13.jpg
+- image17.jpg
+- image18.jpg
+- image26.jpg
+- image30.jpg
+- image32.jpg
+- image33.jpg
+- image42.jpg
+- image45.jpg
+- image46.jpg
+- image47.jpg
+- image49.jpg
+- image50.jpg
+
+Top detections by confidence:
+- image51.jpg: 0.3635 (2 detections)
+- image14.jpg: 0.2772 (1 detections)
+- image28.jpg: 0.2695 (2 detections)
+- image40.jpg: 0.2351 (2 detections)
+- image31.jpg: 0.2298 (1 detections)
+- image3.jpg: 0.2222 (1 detections)
+- image22.jpg: 0.2141 (2 detections)
+- image5.jpg: 0.2098 (1 detections)
+- image37.jpg: 0.2040 (1 detections)
+- image11.jpg: 0.1722 (1 detections)

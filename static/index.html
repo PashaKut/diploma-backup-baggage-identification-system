@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baggage Identification Backup Subsystem</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body data-page="index">
+    <main class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Diploma Project</p>
+        <h1>Baggage Identification Backup Subsystem</h1>
+        <p class="lede"></p>
+        <div class="toolbar">
+          <div class="modes-panel">
+            <span class="toolbar-label">Mode</span>
+            <div id="mode-selector" class="mode-selector"></div>
+          </div>
+          <button id="start-button" class="primary-button" type="button">
+            Start Session
+          </button>
+          <a class="secondary-link" href="/results">Open Results</a>
+        </div>
+      </header>
+
+      <section class="pipeline-grid">
+        <article class="block-card" data-block="registration">
+          <div class="block-header">
+            <span class="block-badge">1.1</span>
+            <span class="status-dot"></span>
+          </div>
+          <h2>Registration</h2>
+          <p class="block-copy">CSV import block.</p>
+          <p class="block-data" data-field="summary">
+            Registered: 0 baggage items
+          </p>
+        </article>
+
+        <article class="block-card" data-block="sorting">
+          <div class="block-header">
+            <span class="block-badge">1.2</span>
+            <span class="status-dot"></span>
+          </div>
+          <h2>Sorting</h2>
+          <p class="block-copy">
+            Session photo processing across the selected path.
+          </p>
+          <p class="block-data" data-field="summary">Processing: 0 / 0</p>
+        </article>
+
+        <article class="block-card is-optional" data-block="detection">
+          <div class="block-header">
+            <span class="block-badge">2.1</span>
+            <span class="status-dot"></span>
+          </div>
+          <h2>Tag Detection</h2>
+          <p class="block-copy">YOLO detection path</p>
+        </article>
+
+        <article class="block-card is-optional" data-block="enhanced_qr">
+          <div class="block-header">
+            <span class="block-badge">2.2</span>
+            <span class="status-dot"></span>
+          </div>
+          <h2>Enhanced QR</h2>
+          <p class="block-copy">Iterative enhancement stage.</p>
+        </article>
+
+        <article class="block-card is-optional" data-block="crnn">
+          <div class="block-header">
+            <span class="block-badge">2.3</span>
+            <span class="status-dot"></span>
+          </div>
+          <h2>CRNN Recognition</h2>
+          <p class="block-copy">
+            Fallback recognition block for the full mode.
+          </p>
+        </article>
+
+        <article class="block-card result-card" data-block="identified">
+          <div class="block-header">
+            <span class="block-badge">1.3</span>
+            <span class="status-dot"></span>
+          </div>
+          <h2>Identified</h2>
+          <p class="block-copy">
+            Successful identifications accumulated in real time.
+          </p>
+          <p class="block-data" data-field="summary">Total: 0</p>
+          <p class="method-breakdown">
+            QR Direct: <span data-method="qr_direct">0</span>
+          </p>
+          <p class="method-breakdown">
+            QR Enhanced: <span data-method="qr_enhanced">0</span>
+          </p>
+          <p class="method-breakdown">
+            CRNN: <span data-method="crnn">0</span>
+          </p>
+        </article>
+
+        <article class="block-card result-card" data-block="lost">
+          <div class="block-header">
+            <span class="block-badge">1.4</span>
+            <span class="status-dot"></span>
+          </div>
+          <h2>Lost</h2>
+          <p class="block-copy">Failed identifications.</p>
+          <p class="block-data" data-field="summary">Total: 0</p>
+        </article>
+      </section>
+    </main>
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

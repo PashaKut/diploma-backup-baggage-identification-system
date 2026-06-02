@@ -1,0 +1,10 @@
+YOLO crop extraction
+============================================================
+Weights: C:\Users\1\Documents\New project\runs\detect\runs\train\detector_20260506_012226\weights\best.pt
+Photos: C:\Users\1\Documents\New project\data\photos
+Output: C:\Users\1\Documents\New project\runs\detect\photo_crops\detector_crops_20260506_113304
+
+Total photos: 52
+Photos with detections: 52
+Photos without detections: 0
+Total crops saved: 52

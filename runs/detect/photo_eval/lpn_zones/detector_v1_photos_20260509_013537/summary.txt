@@ -1,0 +1,23 @@
+YOLO photo evaluation
+============================================================
+Weights: C:\Users\1\Documents\New project\runs\detect\runs\train\lpn_zones_20260509_003420\weights\best.pt
+Photos: C:\Users\1\Documents\New project\check_lpn_photos
+Annotated output: C:\Users\1\Documents\New project\runs\detect\photo_eval\lpn_zones\detector_v1_photos_20260509_013537
+
+Total photos: 55
+Photos with detections: 55
+Photos without detections: 0
+Detection rate: 100.00%
+Average best confidence: 0.7297
+
+Top detections by confidence:
+- image28.jpg: 0.8467 (2 detections)
+- image1.jpg: 0.8455 (2 detections)
+- image35.jpg: 0.8205 (2 detections)
+- image26.jpg: 0.8090 (2 detections)
+- image36.jpg: 0.8042 (2 detections)
+- image54.jpg: 0.7948 (2 detections)
+- image20.jpg: 0.7867 (2 detections)
+- image24.jpg: 0.7853 (2 detections)
+- image45.jpg: 0.7802 (2 detections)
+- image7.jpg: 0.7790 (2 detections)

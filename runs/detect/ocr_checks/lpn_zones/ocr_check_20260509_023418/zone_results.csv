@@ -1,0 +1,7 @@
+photo_filename,class_name,detected,detection_confidence,crop_filename,x1,y1,x2,y2,ocr_variant,ocr_raw_text,ocr_normalized_text,ocr_confidence
+image0.jpg,LPN_right,1,0.3941,crops\LPN_right\image0__LPN_right__0.394.jpg,198,210,275,227,clahe,0014234567,0014 234567,0.9454
+image0.jpg,LPN_bottom,1,0.6126,crops\LPN_bottom\image0__LPN_bottom__0.613.jpg,62,382,144,404,clahe_blur,0014234567,0014 234567,0.9987
+image1.jpg,LPN_right,1,0.6860,crops\LPN_right\image1__LPN_right__0.686.jpg,751,876,1057,939,clahe,0014789012,0014 789012,0.9840
+image1.jpg,LPN_bottom,1,0.7101,crops\LPN_bottom\image1__LPN_bottom__0.710.jpg,252,1503,563,1575,clahe,0014789012,0014 789012,0.9981
+image2.jpg,LPN_right,1,0.6791,crops\LPN_right\image2__LPN_right__0.679.jpg,733,889,1033,950,clahe,0014012345,0014 012345,0.9999
+image2.jpg,LPN_bottom,1,0.6037,crops\LPN_bottom\image2__LPN_bottom__0.604.jpg,264,1534,562,1602,otsu,0014012345,0014 012345,0.9974

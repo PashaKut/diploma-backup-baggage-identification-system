@@ -1,0 +1,6 @@
+photo_filename,decision,final_lpn,right_detected,right_text,right_raw_text,right_detection_confidence,right_ocr_confidence,bottom_detected,bottom_text,bottom_raw_text,bottom_detection_confidence,bottom_ocr_confidence
+image0.jpg,zones_match,0014 234567,1,0014 234567,0014234567,0.3941,0.9454,1,0014 234567,0014234567,0.6126,0.9987
+image1.jpg,single_zone_bottom,0014 456789,0,,,,,1,0014 456789,0014 456789,0.7292,0.9431
+image2.jpg,zones_match,0014 789012,1,0014 789012,0014789012,0.6860,0.9840,1,0014 789012,0014789012,0.7101,0.9981
+image3.jpg,single_zone_right,0014 901234,1,0014 901234,0014901234,0.6699,0.9993,0,,,,
+image4.jpg,zones_match,0014 012345,1,0014 012345,0014012345,0.6791,0.9999,1,0014 012345,0014012345,0.6037,0.9974

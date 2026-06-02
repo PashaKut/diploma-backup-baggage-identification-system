@@ -1,0 +1,7 @@
+flask
+flask-socketio
+sqlalchemy
+python-dotenv
+opencv-python-headless
+ultralytics
+easyocr

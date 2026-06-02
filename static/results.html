@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Results</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body data-page="results">
+    <main class="page-shell">
+        <header class="hero hero-compact">
+            <p class="eyebrow">Results</p>
+            <h1>Sorting Session History</h1>
+            <p class="lede">Browse each sorting session, expand into per-photo records, and inspect original or processed images.</p>
+            <div class="toolbar">
+                <a class="secondary-link" href="/">Back to Pipeline</a>
+            </div>
+        </header>
+
+        <section class="results-panel">
+            <div class="results-table-wrap">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Session</th>
+                            <th>Mode</th>
+                            <th>Total</th>
+                            <th>Identified</th>
+                            <th>Lost</th>
+                            <th>QR Direct</th>
+                            <th>QR Enhanced</th>
+                            <th>CRNN</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessions-body">
+                        <tr>
+                            <td colspan="9" class="empty-cell">Loading sessions...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <div id="image-modal" class="image-modal" hidden>
+        <div class="image-modal__backdrop" data-close-modal="true"></div>
+        <div class="image-modal__panel" role="dialog" aria-modal="true" aria-label="Image preview">
+            <button id="modal-close-button" class="modal-close-button" type="button" aria-label="Close image preview">Close</button>
+            <img id="modal-image" class="image-modal__image" alt="Session image preview">
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

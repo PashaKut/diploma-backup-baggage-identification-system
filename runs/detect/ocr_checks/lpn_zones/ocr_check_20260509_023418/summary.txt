@@ -1,0 +1,9 @@
+LPN zone OCR check
+============================================================
+Weights: C:\Users\1\Documents\New project\runs\detect\runs\train\lpn_zones_20260509_003420\weights\best.pt
+Photos: C:\Users\1\Documents\New project\check_lpn_photos\check3
+Output: C:\Users\1\Documents\New project\runs\detect\ocr_checks\lpn_zones\ocr_check_20260509_023418
+
+Total photos: 3
+Decision counts:
+- zones_match: 3
