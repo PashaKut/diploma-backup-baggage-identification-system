@@ -54,6 +54,7 @@ def run_sorting(session_id: str, mode_key: str, mode_config: dict, session_db, s
                 photo_filename=copied_path.name,
                 original_path=copied_path.relative_to(SESSIONS_DIR).as_posix(),
                 session_db=session_db,
+                socketio=socketio,
             )
 
     results.finalize_session_results(session_id=session_id, session_db=session_db, socketio=socketio)
@@ -115,6 +116,7 @@ def _process_photo(
                 photo_filename=copied_path.name,
                 original_path=relative_original_path,
                 session_db=session_db,
+                socketio=socketio,
             )
             return
 
@@ -137,4 +139,5 @@ def _process_photo(
         photo_filename=copied_path.name,
         original_path=relative_original_path,
         session_db=session_db,
+        socketio=socketio,
     )

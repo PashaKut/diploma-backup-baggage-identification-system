@@ -77,6 +77,7 @@ def run_enhancement(
         original_path=original_path,
         processed_path=last_failure_path,
         session_db=session_db,
+        socketio=socketio,
     )
 
 

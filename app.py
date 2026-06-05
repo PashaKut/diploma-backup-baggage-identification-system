@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from flask import Flask, jsonify, request, send_from_directory
 from flask_socketio import SocketIO
-from sqlalchemy import case, func, select
+from sqlalchemy import func, select
 
 from config import MODES, SESSIONS_DIR
 from database.connection import SessionLocal, init_db
@@ -78,35 +78,99 @@ def start_session():
 def get_session_summaries():
     session_db = SessionLocal()
     try:
-        rows = session_db.execute(
+        matched_rows = session_db.execute(
+            select(
+                MatchedImageResult.session_id.label("session_id"),
+                MatchedImageResult.method.label("method"),
+                MatchedImageResult.qr_strategy.label("qr_strategy"),
+                func.count(MatchedImageResult.id).label("count"),
+            )
+            .group_by(
+                MatchedImageResult.session_id,
+                MatchedImageResult.method,
+                MatchedImageResult.qr_strategy,
+            )
+        ).all()
+        unidentified_rows = session_db.execute(
+            select(
+                UnidentifiedImageResult.session_id.label("session_id"),
+                func.count(UnidentifiedImageResult.id).label("count"),
+            )
+            .group_by(UnidentifiedImageResult.session_id)
+        ).all()
+
+        sessions_by_id: dict[str, dict] = {}
+        for row in matched_rows:
+            session = sessions_by_id.setdefault(
+                row.session_id,
+                {
+                    "session_id": row.session_id,
+                    "session_id_short": row.session_id[:8],
+                    "mode": None,
+                    "total": 0,
+                    "identified": 0,
+                    "lost": 0,
+                    "qr_direct": 0,
+                    "qr_enhanced": 0,
+                    "crnn": 0,
+                },
+            )
+            session["identified"] += row.count or 0
+            session["total"] += row.count or 0
+            if row.method == "qr_direct":
+                session["qr_direct"] += row.count or 0
+            elif row.method == "qr_enhanced":
+                session["qr_enhanced"] += row.count or 0
+            elif row.method == "crnn":
+                session["crnn"] += row.count or 0
+
+        for row in unidentified_rows:
+            session = sessions_by_id.setdefault(
+                row.session_id,
+                {
+                    "session_id": row.session_id,
+                    "session_id_short": row.session_id[:8],
+                    "mode": None,
+                    "total": 0,
+                    "identified": 0,
+                    "lost": 0,
+                    "qr_direct": 0,
+                    "qr_enhanced": 0,
+                    "crnn": 0,
+                },
+            )
+            session["lost"] += row.count or 0
+            session["total"] += row.count or 0
+
+        mode_rows = session_db.execute(
             select(
                 SortingResult.session_id,
                 SortingResult.mode,
-                func.count(SortingResult.id).label("total"),
-                func.sum(case((SortingResult.status == "success", 1), else_=0)).label("identified"),
-                func.sum(case((SortingResult.status == "failed", 1), else_=0)).label("lost"),
-                func.sum(case((SortingResult.method == "qr_direct", 1), else_=0)).label("qr_direct"),
-                func.sum(case((SortingResult.method == "qr_enhanced", 1), else_=0)).label("qr_enhanced"),
-                func.sum(case((SortingResult.method == "crnn", 1), else_=0)).label("crnn"),
             )
             .group_by(SortingResult.session_id, SortingResult.mode)
-            .order_by(SortingResult.session_id.desc())
         ).all()
+        for row in mode_rows:
+            session = sessions_by_id.setdefault(
+                row.session_id,
+                {
+                    "session_id": row.session_id,
+                    "session_id_short": row.session_id[:8],
+                    "mode": None,
+                    "total": 0,
+                    "identified": 0,
+                    "lost": 0,
+                    "qr_direct": 0,
+                    "qr_enhanced": 0,
+                    "crnn": 0,
+                },
+            )
+            session["mode"] = row.mode
 
-        sessions = [
-            {
-                "session_id": row.session_id,
-                "session_id_short": row.session_id[:8],
-                "mode": row.mode,
-                "total": row.total,
-                "identified": row.identified or 0,
-                "lost": row.lost or 0,
-                "qr_direct": row.qr_direct or 0,
-                "qr_enhanced": row.qr_enhanced or 0,
-                "crnn": row.crnn or 0,
-            }
-            for row in rows
-        ]
+        sessions = sorted(
+            sessions_by_id.values(),
+            key=lambda item: item["session_id"],
+            reverse=True,
+        )
         return jsonify({"sessions": sessions})
     finally:
         session_db.close()

@@ -243,4 +243,5 @@ def _record_detection_failure(
         photo_filename=copied_path.name,
         original_path=original_path,
         session_db=session_db,
+        socketio=socketio,
     )

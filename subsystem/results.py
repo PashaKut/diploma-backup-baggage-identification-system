@@ -53,7 +53,6 @@ def record_success(
     )
 
     session_result = session_db.query(SortingResult).filter_by(session_id=session_id, lpn=lpn).one()
-    should_increment = session_result.status != "success"
     session_result.status = "success"
     session_result.method = method
     session_result.subsystem_on = subsystem_on
@@ -64,11 +63,10 @@ def record_success(
 
     session_db.commit()
 
-    if should_increment:
-        socketio.emit(
-            "counter_update",
-            {"block": "identified", "delta": 1, "method": method},
-        )
+    socketio.emit(
+        "counter_update",
+        {"block": "identified", "delta": 1, "method": method},
+    )
 
 
 def record_unidentified(
@@ -78,6 +76,7 @@ def record_unidentified(
     photo_filename: str,
     original_path: str,
     session_db,
+    socketio: SocketIO,
     processed_path: str | None = None,
 ) -> None:
     session_db.add(
@@ -91,13 +90,8 @@ def record_unidentified(
         )
     )
     session_db.commit()
+    socketio.emit("counter_update", {"block": "lost", "delta": 1})
 
 
 def finalize_session_results(session_id: str, session_db, socketio: SocketIO) -> None:
-    failed_count = (
-        session_db.query(SortingResult)
-        .filter_by(session_id=session_id, status="failed")
-        .count()
-    )
-    if failed_count:
-        socketio.emit("counter_update", {"block": "lost", "delta": failed_count})
+    return None

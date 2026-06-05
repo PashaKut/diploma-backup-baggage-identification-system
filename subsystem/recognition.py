@@ -292,4 +292,5 @@ def _record_recognition_failure(
         original_path=original_path,
         processed_path=processed_path,
         session_db=session_db,
+        socketio=socketio,
     )

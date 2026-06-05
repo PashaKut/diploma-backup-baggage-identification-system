@@ -45,8 +45,6 @@ MODES = {
     "basic": {"yolo": False, "enhanced_qr": False, "crnn": False, "direct_qr": True},
     "enhanced": {"yolo": True, "enhanced_qr": True, "crnn": False, "direct_qr": True},
     "full": {"yolo": True, "enhanced_qr": True, "crnn": True, "direct_qr": True},
-    "qr_enhanced_only": {"yolo": True, "enhanced_qr": True, "crnn": False, "direct_qr": False},
-    "ocr_only": {"yolo": True, "enhanced_qr": False, "crnn": True, "direct_qr": False},
 }
 
 SESSION_IMAGE_ROUTE = "/static/sessions"
