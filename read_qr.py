@@ -17,10 +17,6 @@ import cv2
 import numpy as np
 
 
-MAX_WORKING_LONGEST_SIDE = 1800
-MAX_UPSCALE_OUTPUT_PIXELS = 12_000_000
-
-
 def parse_qr_data(raw: str) -> dict:
     lpn = raw.strip()
     if not lpn:
@@ -42,30 +38,13 @@ def try_decode(img: np.ndarray, detector: cv2.QRCodeDetector) -> tuple[str | Non
     return None, None
 
 
-def prepare_working_image(img: np.ndarray) -> np.ndarray:
-    """
-    Bound processing cost for large camera photos.
-    Very large images can hang or exhaust memory when blindly upscaled.
-    """
-    height, width = img.shape[:2]
-    longest_side = max(height, width)
-    if longest_side <= MAX_WORKING_LONGEST_SIDE:
-        return img
-
-    scale = MAX_WORKING_LONGEST_SIDE / longest_side
-    new_width = max(1, int(width * scale))
-    new_height = max(1, int(height * scale))
-    return cv2.resize(img, (new_width, new_height), interpolation=cv2.INTER_AREA)
-
-
 def read_qr_from_ndarray(img: np.ndarray) -> dict:
     if img is None or img.size == 0:
         return {"success": False, "error": "Invalid image array"}
 
-    working_img = prepare_working_image(img)
     detector = cv2.QRCodeDetector()
 
-    data, points = try_decode(working_img, detector)
+    data, points = try_decode(img, detector)
     if data:
         return {
             "success": True,
@@ -73,40 +52,6 @@ def read_qr_from_ndarray(img: np.ndarray) -> dict:
             "parsed": parse_qr_data(data),
             "points": points.tolist() if points is not None else None,
             "strategy": "direct",
-        }
-
-    height, width = working_img.shape[:2]
-    for scale in [2, 4]:
-        if (height * scale) * (width * scale) > MAX_UPSCALE_OUTPUT_PIXELS:
-            continue
-
-        upscaled = cv2.resize(
-            working_img,
-            (width * scale, height * scale),
-            interpolation=cv2.INTER_CUBIC,
-        )
-        data, points = try_decode(upscaled, detector)
-        if data:
-            normalized_points = (points / scale).tolist() if points is not None else None
-            return {
-                "success": True,
-                "raw": data,
-                "parsed": parse_qr_data(data),
-                "points": normalized_points,
-                "strategy": f"upscale_x{scale}",
-            }
-
-    gray = cv2.cvtColor(working_img, cv2.COLOR_BGR2GRAY)
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-    enhanced = clahe.apply(gray)
-    data, points = try_decode(enhanced, detector)
-    if data:
-        return {
-            "success": True,
-            "raw": data,
-            "parsed": parse_qr_data(data),
-            "points": points.tolist() if points is not None else None,
-            "strategy": "clahe",
         }
 
     return {"success": False, "error": "QR code not found or could not be decoded"}

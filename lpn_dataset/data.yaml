@@ -1,8 +1,0 @@
-path: C:\Users\1\Documents\New project\lpn_dataset
-train: images/train
-val: images/val
-test: images/test
-nc: 2
-names:
-- LPN_bottom
-- LPN_right

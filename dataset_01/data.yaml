@@ -1,7 +1,0 @@
-names:
-- Tag
-nc: 1
-path: C:\Users\1\Documents\New project\dataset
-test: images/test
-train: images/train
-val: images/val
